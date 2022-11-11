@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@800&display=swap');
+
+.container {
+    container-type: inline-size;
+}
+
+.title {
+    color: var(--black);
+    font-family: "Noto Sans";
+    font-weight: 800;
+    letter-spacing: 0.047rem;
+    margin-top: 8.5vh;
+    margin-left: 13vw;
+    font-size: clamp(3.438rem, 4vh, 4.688rem); 
+    height: 29vh;
+    width: 34vw;
+}
+
+@container (max-width: 1010px) {
+    .title {
+        margin: clamp(2.188rem, 15%, 5rem);
+        margin-top: max(20%,2.188rem-5%);
+        width: 75%;
+        font-size: clamp(1.6rem, 3.5rem, 10vw);
+        letter-spacing: 0.047rem;
+    }
+}
+
+.emphasize_blue {
+    color: var(--blue);
+    font-style: normal;
+}
