@@ -9,9 +9,10 @@
     font-family: "Noto Sans";
     font-weight: 800;
     letter-spacing: 0.047rem;
+    line-height: min(auto, 8rem);
     margin-top: 8.5vh;
     margin-left: 13vw;
-    font-size: clamp(3.438rem, 4vh, 4.688rem); 
+    font-size: clamp(3.438rem, 3.8vw, 10rem);
     height: 29vh;
     width: 34vw;
 }
