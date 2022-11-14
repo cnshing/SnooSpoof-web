@@ -1,0 +1,8 @@
+.tabs {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1.38rem;
+    margin-right: 17vw;
+    margin-top: 1.25vh;
+}
