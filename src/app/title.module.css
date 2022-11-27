@@ -2,6 +2,7 @@
 
 .container {
     container-type: inline-size;
+    clear: right;
 }
 
 .title {
@@ -9,8 +10,7 @@
     font-family: "Noto Sans";
     font-weight: 800;
     letter-spacing: 0.047rem;
-    line-height: min(auto, 8rem);
-    margin-top: 8.5vh;
+    margin-top: 1vh;
     margin-left: 13vw;
     font-size: clamp(3.438rem, 3.8vw, 10rem);
     height: 29vh;
@@ -20,9 +20,8 @@
 @container (max-width: 1010px) {
     .title {
         margin: clamp(2.188rem, 15%, 5rem);
-        margin-top: max(20%,2.188rem-5%);
         width: 75%;
-        font-size: clamp(1.6rem, 3.5rem, 10vw);
+        font-size: clamp(1.8rem, 3.5rem, 10vw);
         letter-spacing: 0.047rem;
     }
 }

@@ -1,8 +1,19 @@
 .tabs {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 1.38rem;
-    margin-right: 17vw;
-    margin-top: 1.25vh;
+    position: relative;
+    /* Transition two different margins for mobile and desktop designs linearly.
+    See https://css-tricks.com/linearly-scale-font-size-with-css-clamp-based-on-the-viewport/
+    for details. */
+    margin-right: clamp(1.5rem, -9.5712rem + 17.5385vw, 11.475rem);
+    margin-top: 1.5vh;
+    float: right;
+}
+
+.tabs > * {
+    display: inline;
+    width: clamp(3.125rem, 1vw, 2.75vw);
+    height: auto;
+}
+
+.tabs > :not(:last-child) {
+    margin-right: max(1.375rem, 1.35vw);
 }
