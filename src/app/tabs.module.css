@@ -1,14 +1,17 @@
 .tabs {
     position: relative;
     /* Transition two different margins for mobile and desktop designs linearly.
+    In other words, the margin should smoothly transition at 20.5 rem for wider viewports(1920px),
+    but no less than 1.5 rem for our mobile viewports(1010px).
     See https://css-tricks.com/linearly-scale-font-size-with-css-clamp-based-on-the-viewport/
     for details. */
-    margin-right: clamp(1.5rem, -9.5712rem + 17.5385vw, 11.475rem);
+    /*margin-right: clamp(1.5rem, -9.5712rem + 17.5385vw, 11rem);*/
+    margin-right: clamp(1.5rem, -19.5879rem + 33.4066vw, 20.5rem);;
     margin-top: 1.5vh;
     float: right;
 }
 
-.tabs > * {
+.tabs > * > img {
     display: inline;
     width: clamp(3.125rem, 1vw, 2.75vw);
     height: auto;
