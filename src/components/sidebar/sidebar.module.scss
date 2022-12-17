@@ -1,0 +1,67 @@
+$sidebar-width: clamp(min(85vw, 14.45rem), 46.875rem - 51.369vw, 85vw);
+$sidebar-height: 100vh;
+$animation: transform 350ms ease-in-out;
+
+/* Returns the value required to offset the current Sidebar's width.
+   Args: $multiple: Optional number to multiply the offset by. Defaults to 1.
+*/
+@function sidebar-offset($multiple: 1) {
+    @return calc($sidebar-width*$multiple);
+}
+
+%sidebar-dimensions {
+    height: $sidebar-height;
+    width: $sidebar-width;
+}
+
+%sidebar-slide-right {
+    transition: $animation;
+    left: sidebar-offset(-1);
+    transform: translateX(sidebar-offset(1));
+}
+
+%elements-in-place {
+    transition: $animation;
+    left: sidebar-offset(1);
+    transform: translateX(sidebar-offset(-1));
+}
+/* Sidebar will have its elements "in-place". In other words, the Sidebar content
+    will remain at where it should be at the end of the animation, rather than
+    "along" with the Sidebar. This results in a curtain effect as the elements
+    are revealed as the sidebar enlarges.
+
+    Variation of post https://stackoverflow.com/questions/21113332/css-apply-overflowhidden-to-sibling
+*/
+
+.sidebar {
+    @extend %sidebar-dimensions;
+    overflow: hidden;
+    position: absolute;
+    background: white;
+    z-index: 1;
+}
+
+.closeSidebar {
+    /*  Using display: none to hide the sidebar will result in invalid transitions on open
+        https://stackoverflow.com/questions/3331353/transitions-on-the-css-display-property
+    */
+    visibility: hidden;
+    opacity: 0;    
+}
+
+.openSidebar {
+    @extend %sidebar-slide-right;
+}
+
+.openSidebar > * {
+    @extend %elements-in-place;
+    position: relative;
+    z-index: 2;
+    
+}
+
+.disableAnimation {
+    &, & > * {
+        transition: none;        
+    }
+}

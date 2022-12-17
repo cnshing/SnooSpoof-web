@@ -1,5 +1,12 @@
 import './globals.css'
+import Image from 'next/image'
+import Sidebar from "@/components/sidebar/sidebar"
+import ShareSidebar from "@/components/sidebar/manageSidebar"
 import Icons from "@/app/tabs"
+import Github from "@/app/github"
+import Gear from "@/components/tabs/gear"
+import GearIcon from '@/assets/gear.png'
+
 
 export default function RootLayout({
   children,
@@ -14,8 +21,21 @@ export default function RootLayout({
       */}
       <head />
       <body>
-        <Icons />
+        {/*
+          Passing in the sidebar component directly to avoid this issue:
+          https://stackoverflow.com/questions/48240449/type-is-not-assignable-to-type-intrinsicattributes-intrinsicclassattribu 
+        */}
+        <ShareSidebar>
+          <Icons>
+            <Github/>
+            <Gear requires={['openSettings']}>
+              <Image src={GearIcon} alt="Settings"></Image>
+            </Gear>
+          </Icons>
+          <Sidebar requires={['isVisible', 'closeSettings']}/>
+        </ShareSidebar>
         <div>{children}</div>
+
       </body>
     </html>
   )
