@@ -21,10 +21,6 @@ export default function RootLayout({
       */}
       <head />
       <body>
-        {/*
-          Passing in the sidebar component directly to avoid this issue:
-          https://stackoverflow.com/questions/48240449/type-is-not-assignable-to-type-intrinsicattributes-intrinsicclassattribu 
-        */}
         <ShareSidebar>
           <Icons>
             <Github/>
