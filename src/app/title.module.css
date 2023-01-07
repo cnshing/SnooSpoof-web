@@ -9,17 +9,17 @@
     color: var(--black);
     font-family: "Noto Sans";
     font-weight: 800;
-    letter-spacing: 0.047rem;
-    margin-top: 1vh;
-    margin-left: 13vw;
+    letter-spacing: 0.047rem;   
     font-size: clamp(3.438rem, 3.8vw, 10rem);
-    height: 29vh;
+    height: fit-content;
+    margin-top: 1vh;
+    margin-left: var(--left-align-center);
     width: 34vw;
 }
 
 @container (max-width: 1010px) {
     .title {
-        margin: clamp(2.188rem, 15%, 5rem);
+        margin-top: clamp(2.188rem, 15%, 5rem);
         width: 75%;
         font-size: clamp(1.8rem, 3.5rem, 10vw);
         letter-spacing: 0.047rem;
