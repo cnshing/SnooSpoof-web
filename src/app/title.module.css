@@ -10,7 +10,7 @@
     font-family: "Noto Sans";
     font-weight: 800;
     letter-spacing: 0.047rem;   
-    font-size: clamp(3.438rem, 3.8vw, 10rem);
+    font-size: clamp(1.8rem, 2.3235rem + 1.8637vw, 4.56rem);
     height: fit-content;
     margin-top: 1vh;
     margin-left: var(--left-align-center);
@@ -21,7 +21,6 @@
     .title {
         margin-top: clamp(2.188rem, 15%, 5rem);
         width: 75%;
-        font-size: clamp(1.8rem, 3.5rem, 10vw);
         letter-spacing: 0.047rem;
     }
 }
