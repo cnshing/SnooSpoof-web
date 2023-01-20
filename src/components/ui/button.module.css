@@ -1,0 +1,17 @@
+.button {
+    width: 132px;
+    height: 3.375rem;
+    border: 1px none;
+    font-size: 1.3rem;
+    line-height: 1.3rem;
+    border-radius: 0px 5px 5px 0px;
+    box-shadow: 0px 4px 4px #00000040;
+    background-color: var(--button-color);
+    color: var(--text-color);
+}
+
+.button:hover {
+    /* Use z-index to prevent text from being affected by filter*/
+    transition: background-color 300ms ease-out;
+    background-color: var(--brighten-button);
+}
