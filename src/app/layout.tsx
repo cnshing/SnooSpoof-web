@@ -1,4 +1,5 @@
 import './globals.css'
+import { Noto_Sans_Display } from '@next/font/google';
 import Image from 'next/image'
 import Sidebar from "@/components/sidebar/sidebar"
 import ShareSidebar from "@/components/sidebar/manageSidebar"
@@ -7,6 +8,11 @@ import Github from "@/app/github"
 import Gear from "@/components/tabs/gear"
 import GearIcon from '@/assets/gear.png'
 
+const noto_sans = Noto_Sans_Display({
+  subsets: ['latin'],
+  variable: '--font-noto-sans',
+  display: 'swap'
+})
 
 export default function RootLayout({
   children,
@@ -14,7 +20,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className={noto_sans.className}>
       {/*
         <head /> will contain the components returned by the nearest parent
         head.tsx. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
