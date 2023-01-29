@@ -11,12 +11,22 @@
     float: right;
 }
 
+.tabs > * {
+    display: inline-block;
+    width: max(3rem, 0.8vw);
+}
+
 .tabs > * > img {
-    display: inline;
-    width: clamp(3.125rem, 1vw, 2.75vw);
+    width: 100%;
     height: auto;
 }
 
+/* The gear appears 20% smaller than the Github icon*/
+.tabs > :last-child > img {
+    transform: scale(1.2);
+}
+
+/* Gap betwen gear and Github */
 .tabs > :not(:last-child) {
-    margin-right: max(1.375rem, 1.35vw);
+    margin-right: max(1.375rem, 1.455vw);
 }

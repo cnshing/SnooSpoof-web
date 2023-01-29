@@ -1,7 +1,7 @@
 
-/* TODO: Replace .png assets with .svg after svg loading on versions after 13.02
-bug is fixed. See the below link for more details:
+/* TODO: Replace inline public svg assets with direct svg imports. See the below links for more details:
 https://github.com/vercel/next.js/issues/42443
+https://github.com/vercel/next.js/issues/43714
 */
 import styles from "@/app/tabs.module.css"
 import {ReactNode} from 'react'
