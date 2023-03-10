@@ -35,10 +35,16 @@ $animation: transform 350ms ease-in-out;
 
 .sidebar {
     @extend %sidebar-dimensions;
-    overflow: hidden;
-    position: absolute;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    position: fixed;
     background: white;
     z-index: 1;
+}
+
+.sidebar > * {
+    margin: auto 0;
 }
 
 .closeSidebar {
@@ -57,7 +63,6 @@ $animation: transform 350ms ease-in-out;
     @extend %elements-in-place;
     position: relative;
     z-index: 2;
-    
 }
 
 .disableAnimation {
