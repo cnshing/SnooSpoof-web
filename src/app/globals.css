@@ -8,6 +8,7 @@
   --dark-grey: #4F4E4F;
   --grey: #8D8D8D;
   --silver: #D7D7D7;
+  --ghost-white: #F8F9FA;
   --left-align-center: clamp(2.188rem, 13vw, max(13vw, 5rem));
 }
 
