@@ -1,0 +1,6 @@
+
+.tab {
+    width: max(20%, 53px);
+    min-width: 53px;
+    background-color: var(--ghost-white);
+}

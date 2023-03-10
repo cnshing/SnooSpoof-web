@@ -1,0 +1,15 @@
+.article {
+    margin: 2.5%;
+}
+.headline {
+    font-size: var(--article-size);
+    font-family: var(--font-ibm-plex-sans);
+    font-weight: 500;
+}
+
+.article > p {
+    white-space: pre-wrap;
+    margin-top: 2.5%;
+    font-weight: 300;
+    font-size: calc(var(--article-size) * 18 / 28);
+}
