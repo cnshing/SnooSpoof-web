@@ -53,7 +53,7 @@ export type GenerationConfig = {
    * @returns A string representing the requested setting. If no such setting is defined, return an empty string.
    * If multiple settings are requested, return a key-value object of the same expected returns above.
    */
-  export function getSetting(setting: GenerationKeys | string[]) {
+  export function getSetting(setting: GenerationKeys | GenerationKeys[]) {
     function getSingleSetting(setting: GenerationKeys) {
       const value = window.localStorage.getItem(setting)
       return value !== null ? JSON.parse(value) : value;
