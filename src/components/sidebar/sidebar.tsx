@@ -58,7 +58,7 @@ export default function Sidebar({ isVisible, closeSettings }: Partial<manageSide
 
       const { username, ...initialSettings } = defaultConfig;
 
-      return getSetting(Object.keys(initialSettings))
+      return getSetting(Object.keys(initialSettings) as Omit<GenerationKeys, 'username'>[])
 
     },
     []);

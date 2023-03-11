@@ -75,7 +75,7 @@ export function updateSetting(setting: GenerationKeys, value: GenerationValues) 
  * Retrieves the total configuration for generating text from local storage.
  */
 export function getGenerationConfig() {
-    return getSetting(Object.keys(defaultConfig))
+    return getSetting(Object.keys(defaultConfig) as GenerationKeys[])
 }
 
 /**
