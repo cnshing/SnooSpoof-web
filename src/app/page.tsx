@@ -1,7 +1,6 @@
 
 import Title from "@/app/title"
 import GenerateBar from "@/components/generate/generate"
-import Progress from "@/app/progress"
 import Article from "@/components/post/article"
 import Tab from "@/components/post/tab"
 import Box from "@/components/post/box"
@@ -12,7 +11,6 @@ export default function Home() {
     <Fragment>
     <Title></Title>
     <GenerateBar></GenerateBar>
-    <Progress></Progress>
     <Box style={
                 {
                   marginTop: "calc(max(4rem, 3.5vh)/2)",

@@ -1,29 +1,10 @@
 'use client';
 import styles from "@/components/generate/generate.module.scss"
-import { CSSProperties, forwardRef, useEffect, useRef } from "react"
+import { CSSProperties, useEffect, useState } from "react"
 import Button from "@/components/ui/button"
 import { Input } from "@/components/ui/fields"
-import { updateSetting, generate, getGenerationConfig, GenerationConfig, getSetting } from "@/components/generate/manageGenerate";
-import { report } from "process";
-
-
-/**
- * Wait for a specific amount of seconds.
- * 
- * To wait for one second, use the following:
- * await timeout(1000); 
- * 
- * Or
- * 
- * timeout(1000).then( () => something() )
- * 
- * From https://stackoverflow.com/questions/42089548/how-to-add-delay-in-react-js
- * @param delay Any number in milliseconds
- * @returns 
- */
-function timeout(delay: number) {
-    return new Promise(res => setTimeout(res, delay));
-}
+import { updateSetting, generate, getGenerationConfig, getSetting } from "@/components/generate/manageGenerate";
+import { iterateProgress, Progress, fakeProgress } from "@/components/generate/progress"
 
 /**
  * Call to action for entering username and generating text
@@ -97,31 +78,42 @@ export default function GenerateBar() {
         }
     }
 
+    const progress = iterateProgress();
+    const [status, setStatus] = useState<string>(" ")
+
     return (
-        <div className={`${styles.container} ${styles.font}`} style={buttonWidth}>
-            <span className={`${styles.prefix}`}>/u/</span>
-            <Input id={unqiueGenId} onChange={clearInputError}
-                className={`${styles.username}`} initialValue="" composeValue={updateUsername}
-                title="Letters, numbers, dashes, and underscores only."
-                placeholder="Username" type="text" required />
-            <Button style={
-                {
-                    "width": "var(--button-width)" /* Override default button width */
-                } as CSSProperties
-            }
-                color="#0079D3"
-                onClick={() => {
-                    const username: string = getSetting("username")
-                    validUsername(username)
-                        .then((realUser) => {
-                            if (!realUser) {
-                                promptInputError("Please enter a real username")
-                                return
-                            }
-                            generate(getGenerationConfig())
-                                .then(result => console.log(result))
-                        })
-                }}>Generate</Button>
-        </div>
+        <>
+            <div className={`${styles.container} ${styles.font}`} style={buttonWidth}>
+                <span className={`${styles.prefix}`}>/u/</span>
+                <Input id={unqiueGenId} onChange={clearInputError}
+                    className={`${styles.username}`} initialValue="" composeValue={updateUsername}
+                    title="Letters, numbers, dashes, and underscores only."
+                    placeholder="Username" type="text" required />
+                <Button style={
+                    {
+                        "width": "var(--button-width)" /* Override default button width */
+                    } as CSSProperties
+                }
+                    color="#0079D3"
+                    onClick={() => {
+                        const username: string = getSetting("username")
+                        validUsername(username)
+                            .then((realUser) => {
+                                if (!realUser) {
+                                    promptInputError("Please enter a real username")
+                                    return
+                                }
+                                fakeProgress(undefined, () => { setStatus(progress.next().value) })
+                                generate(getGenerationConfig())
+                                    .then(result => {
+                                        setStatus(progress.next().value)
+                                        console.log(result);
+                                    })
+
+                            })
+                    }}>Generate</Button>
+            </div>
+            <Progress status={status} />
+        </>
     )
 }
