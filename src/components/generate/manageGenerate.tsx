@@ -50,11 +50,15 @@ export type GenerationValues = GenerationConfig[keyof GenerationConfig]
  * @param setting Any setting in GenerationConfig
  * @returns A string representing the requested setting. If no such setting is defined, return an empty string.
  * If multiple settings are requested, return a key-value object of the same expected returns above.
+ * Returns undefined if window is inaccessible.
  */
 export function getSetting(setting: GenerationKeys | GenerationKeys[]) {
     function getSingleSetting(setting: GenerationKeys) {
-        const value = window.localStorage.getItem(setting)
-        return value !== null ? JSON.parse(value) : value;
+        if (typeof window !== "undefined") {
+            const value = window.localStorage.getItem(setting)
+            return value !== null ? JSON.parse(value) : value;            
+        }
+        return undefined
     }
     if (Array.isArray(setting)) {
         return setting.reduce((settings, eachSetting) => ({ ...settings, [eachSetting]: getSingleSetting(eachSetting) }), {})
@@ -63,12 +67,14 @@ export function getSetting(setting: GenerationKeys | GenerationKeys[]) {
 }
 
 /**
- * Updates the configuration for generating text to local storage. Follows the API types GenerationConfig.
+ * Updates the configuration for generating text to local storage. If no local storage exists,
+ * do nothing.
+ * Follows the API types GenerationConfig.
  * @param setting Any setting in GenerationConfig
  * @param value Any allowed values of the selected setting in GenerationConfig
  */
 export function updateSetting(setting: GenerationKeys, value: GenerationValues) {
-    window.localStorage.setItem(setting, JSON.stringify(value));
+    if (typeof window !== "undefined") window.localStorage.setItem(setting, JSON.stringify(value));
 }
 
 /**
