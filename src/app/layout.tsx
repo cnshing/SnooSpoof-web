@@ -1,5 +1,5 @@
 import './globals.css'
-import { Noto_Sans_Display, IBM_Plex_Sans } from '@next/font/google';
+import { Noto_Sans_Display, IBM_Plex_Sans } from 'next/font/google';
 import Image from 'next/image'
 import Sidebar from "@/components/sidebar/sidebar"
 import ShareSidebar from "@/components/sidebar/manageSidebar"
