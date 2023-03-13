@@ -96,7 +96,7 @@ export default function Sidebar({ isVisible, closeSettings }: Partial<manageSide
       <div>
         <Article headline="Autofill"
           size={articleSize}>
-          <p>Autocompletes the initial prompt. Enable "Comments Only" to reply to your prompt instead.</p>
+          <p>Autocompletes the initial prompt. Enable &quot;Comments Only&quot; to reply to your prompt instead.</p>
         </Article>
         <Textarea initialValue={settings["prompt"]} composeValue={saveOption("prompt")} style={{ height: "10rem" }} placeholder="My prompt goes here..." />
       </div>

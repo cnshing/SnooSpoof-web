@@ -22,7 +22,7 @@ export type updateSidebar = {
 export type manageSidebar = updateSidebar & readSidebar;
 
 
-export function initSidebar() {
+export function useSidebar() {
   const sidebar = {} as manageSidebar;
   const [isVisible, setVisibility] = useState(false);
   sidebar.isVisible = isVisible;
@@ -56,7 +56,7 @@ export function initSidebar() {
  * where the array matches the key values of manageSidebar.
  */
 export default function ShareSidebar({ children }: { children: React.ReactNode }) {
-  const sidebar: manageSidebar = initSidebar();
+  const sidebar: manageSidebar = useSidebar();
   return (
     <ShareObject object={sidebar}>
       {children}
