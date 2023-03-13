@@ -19,7 +19,7 @@ export default function Home() {
                   maxWidth: "40rem"
                 } as CSSProperties
             }>
-      <Tab>
+      <Tab color="var(--ghost-white)">
       </Tab>
       <Article headline="What is SnooSpoof?"
                size="28px">

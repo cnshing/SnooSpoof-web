@@ -1,10 +1,38 @@
 'use client';
+import { useRouter } from 'next/navigation';
 import styles from "@/components/generate/generate.module.scss"
 import { CSSProperties, useEffect, useState } from "react"
 import Button from "@/components/ui/button"
 import { Input } from "@/components/ui/fields"
-import { updateSetting, generate, getGenerationConfig, getSetting } from "@/components/generate/manageGenerate";
+import { updateSetting, generate, getGenerationConfig, getSetting, GenerationConfig, GeneratedText } from "@/components/generate/manageGenerate";
 import { iterateProgress, Progress, fakeProgress } from "@/components/generate/progress"
+
+/**
+ * Asks reddit if the username is valid.
+ * @param username A reddit username
+ * @returns A Promise resolving to the validity of the user. Returns false if is reddit is unavaliable.
+ */
+export async function validUsername(username: string): Promise<boolean> {
+    const parameters = {
+        user: username
+    }
+    const query: string = new URLSearchParams(parameters).toString()
+    const url: string = "https://www.reddit.com/api/username_available.json?"
+    const usernameTaken = fetch(url + query)
+        .then((response) => response.json())
+        .then((value) => value)
+        .catch(() => false)
+
+    return usernameTaken.then((taken) => typeof taken == 'boolean' && !taken)
+}
+
+/**
+ * Updates the username and return the value.
+ */
+function updateUsername(user: string): string  {
+    updateSetting("username", user)
+    return user;
+}
 
 /**
  * Call to action for entering username and generating text
@@ -17,35 +45,11 @@ export default function GenerateBar() {
 
     useEffect(
         () => {
-            updateSetting("username", "") /* On first load empty the username*/
+            updateUsername("") /* On first load empty the username*/
         }
         , []
     )
-
-    /**
-     * Asks reddit if the username is valid.
-     * @param username A reddit username
-     * @returns A Promise resolving to the validity of the user. Returns false if is reddit is unavaliable.
-     */
-    async function validUsername(username: string): Promise<boolean> {
-        const parameters = {
-            user: username
-        }
-        const query: string = new URLSearchParams(parameters).toString()
-        const url: string = "https://www.reddit.com/api/username_available.json?"
-        const usernameTaken = fetch(url + query)
-            .then((response) => response.json())
-            .then((value) => value)
-            .catch(() => false)
-
-        return usernameTaken.then((taken) => typeof taken == 'boolean' && !taken)
-    }
     const unqiueGenId: string = "usernameInput"
-
-    const updateUsername = (user: string): string => {
-        updateSetting("username", user)
-        return user;
-    }
 
     /**
      * Attempts to retrieve the single username field
@@ -80,7 +84,7 @@ export default function GenerateBar() {
 
     const progress = iterateProgress();
     const [status, setStatus] = useState<string>(" ")
-
+    const router = useRouter()
     return (
         <>
             <div className={`${styles.container} ${styles.font}`} style={buttonWidth}>
@@ -97,18 +101,34 @@ export default function GenerateBar() {
                     color="#0079D3"
                     onClick={() => {
                         const username: string = getSetting("username")
+                        const comments_only: boolean = getSetting("comments_only");
                         validUsername(username)
-                            .then((realUser) => {
+                            /* Checks to see if the username is valid before fetching*/
+                            .then(async (realUser) => {
                                 if (!realUser) {
                                     promptInputError("Please enter a real username")
                                     return
                                 }
+                            /* Start fake progress text */
                                 fakeProgress(undefined, () => { setStatus(progress.next().value) })
-                                generate(getGenerationConfig())
-                                    .then(result => {
-                                        setStatus(progress.next().value)
-                                        console.log(result);
-                                    })
+                                const params: GenerationConfig = getGenerationConfig();
+                                /**
+                                 * Redirects the user to the freshly generated posts
+                                 * @param result The generated responses
+                                 */
+                                const showPost = (result: GeneratedText) => {
+                                    setStatus("Done!")
+                                    const loadResults = (setting: keyof GeneratedText) => {
+                                        return result.hasOwnProperty(setting) ? result[setting] : params[setting]
+                                    }
+                                    const url: string = `/post` + [comments_only, username, loadResults('subreddit'), loadResults('prompt'), loadResults('response')].reduce(
+                                        (query, setting) => query + "/" + encodeURIComponent(setting),
+                                        ""
+                                    )
+                                    router.push(url)
+                                }
+                                const genText = await generate(params)
+                                showPost(genText)
 
                             })
                     }}>Generate</Button>
