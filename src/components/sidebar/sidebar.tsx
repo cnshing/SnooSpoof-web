@@ -58,8 +58,22 @@ export default function Sidebar({ isVisible, closeSettings }: Partial<manageSide
 
       const { username, ...initialSettings } = defaultConfig;
 
-      return getSetting(Object.keys(initialSettings) as Omit<GenerationKeys, 'username'>[])
+      const retrieved = getSetting(Object.keys(initialSettings) as Omit<GenerationKeys[], 'username'>)
+      
+      /* Revert to default configuration if settings are inaccessible*/
+      for (const key in retrieved) {
+        const setting: GenerationKeys = key as GenerationKeys
+        if (retrieved[setting] === null) {
+          const defaultSetting: GenerationValues = defaultConfig[setting]
+          console.log(setting)
+          console.log(defaultSetting)
+          updateSetting(setting, defaultSetting)         
+          retrieved[setting] = defaultConfig[setting]  
+        }
 
+      }
+
+      return retrieved
     },
     []);
 
@@ -68,15 +82,6 @@ export default function Sidebar({ isVisible, closeSettings }: Partial<manageSide
     return value;
   }
 
-  const loadCheckbox = (setting: GenerationKeys<boolean>): boolean => {
-    /* When loading the checkbox from local storage, new users will have never saved the
-    settings to local storage. Thus, getSettings will return "null" as no such data exists. 
-    In that case, simply return the default configuration. This function
-    should not be required if the initial loading of our stored data checks for these null values.
-    */
-    const value: boolean = settings[setting]
-    return value === null ? defaultConfig[setting] : value
-  }
 
   return (
     <aside ref={sidebarRef} className={`${styles.sidebar} ${animateSidebar}`}>
@@ -100,9 +105,9 @@ export default function Sidebar({ isVisible, closeSettings }: Partial<manageSide
           size={articleSize}>
           <p>Shift content to be more associated with these tags.</p>
         </Article>
-        <Checkbox initialChecked={loadCheckbox("comments_only")} composeChecked={saveOption("comments_only")} label="Comments Only" checkboxSize={checkboxSize} />
-        <Checkbox initialChecked={loadCheckbox("is_original_content")} composeChecked={saveOption("is_original_content")} label="Original Content" checkboxSize={checkboxSize} />
-        <Checkbox initialChecked={loadCheckbox("over_18")} composeChecked={saveOption("over_18")} label="NSFW" checkboxSize={checkboxSize} />
+        <Checkbox initialChecked={settings["comments_only"]} composeChecked={saveOption("comments_only")} label="Comments Only" checkboxSize={checkboxSize} />
+        <Checkbox initialChecked={settings["is_original_content"]} composeChecked={saveOption("is_original_content")} label="Original Content" checkboxSize={checkboxSize} />
+        <Checkbox initialChecked={settings["over_18"]} composeChecked={saveOption("over_18")} label="NSFW" checkboxSize={checkboxSize} />
       </div>
     </aside>
   )

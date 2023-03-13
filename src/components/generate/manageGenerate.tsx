@@ -10,12 +10,12 @@ export type GenerationConfig = {
     over_18: boolean
 }
 
-export type GeneratedText = Pick<GenerationConfig, "subreddit" | "prompt"> & { response: string | undefined }
+export type GeneratedText = { subreddit: string, prompt: string, response: string }
 
 export const defaultConfig: GenerationConfig = {
     username: "",
-    subreddit: undefined,
-    prompt: undefined,
+    subreddit: "",
+    prompt: "",
     comments_only: false,
     is_original_content: false,
     over_18: false
