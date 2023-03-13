@@ -15,7 +15,7 @@ const noto_sans = Noto_Sans_Display({
 
 const ibm_plex_sans = IBM_Plex_Sans({
   subsets: ['latin'],
-  weight: "500",
+  weight: ["500", "600"],
   variable: '--font-ibm-plex-sans',
   display: 'swap'
 })
@@ -42,8 +42,8 @@ export default function RootLayout({
           </Icons>
           <Sidebar requires={['isVisible', 'closeSettings']}/>
         </ShareSidebar>
-        <div>{children}</div>
-
+        {/* Clear right to ensure floated elements stay at the correct position */}
+        <div style={{clear: "right"}}>{children}</div>
       </body>
     </html>
   )
