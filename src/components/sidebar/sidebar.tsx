@@ -63,10 +63,8 @@ export default function Sidebar({ isVisible, closeSettings }: Partial<manageSide
       /* Revert to default configuration if settings are inaccessible*/
       for (const key in retrieved) {
         const setting: GenerationKeys = key as GenerationKeys
-        if (retrieved[setting] === null) {
+        if (retrieved[setting] == null) {
           const defaultSetting: GenerationValues = defaultConfig[setting]
-          console.log(setting)
-          console.log(defaultSetting)
           updateSetting(setting, defaultSetting)         
           retrieved[setting] = defaultConfig[setting]  
         }
