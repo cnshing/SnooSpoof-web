@@ -1,0 +1,14 @@
+
+.box {
+    display: flex;
+    flex-direction: row;
+    overflow-wrap: anywhere;
+    height: max-content;
+    background-color: white;
+    box-sizing: border-box;
+    border: 1px solid var(--silver);
+    border-radius: 5px;
+    margin-left: var(--left-align-center);
+    align-items: stretch;
+    width: fit-content;
+}

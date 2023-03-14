@@ -1,0 +1,35 @@
+.uUsername {
+    color: var(--chain-grey)
+}
+
+.rSubreddit {
+    font-family: var(--font-ibm-plex-sans);
+    font-weight: 600;
+    color: black
+}
+
+.response {
+    font-family: var(--font-noto-sans);
+    color: var(--black);
+    line-height: initial;
+}
+.headerContainer {
+    margin-left: 2.5%;
+    margin-top: 1%;
+    white-space: pre-wrap;
+}
+
+.seperator {
+    width: var(--seperator-length);
+    color: var(--silver);
+}
+
+.vertical {
+    height: var(--vertical-length);
+    max-height: calc(100% - 70px);
+    margin-top: 10px;
+    background-image: linear-gradient(var(--silver), var(--silver));
+    background-size: 2px 100%;
+    background-repeat: no-repeat;
+    background-position: center center;
+}

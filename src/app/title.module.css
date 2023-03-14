@@ -1,0 +1,28 @@
+
+.container {
+    container-type: inline-size;
+}
+
+.title {
+    color: var(--black);
+    font-weight: 800;
+    letter-spacing: 0.047rem;   
+    font-size: clamp(1.8rem, 2.3235rem + 1.8637vw, 4.56rem);
+    height: fit-content;
+    margin-top: 1vh;
+    margin-left: var(--left-align-center);
+    width: 34vw;
+}
+
+@container (max-width: 1010px) {
+    .title {
+        margin-top: clamp(2.188rem, 15%, 5rem);
+        width: 75%;
+        letter-spacing: 0.047rem;
+    }
+}
+
+.emphasize_blue {
+    color: var(--blue);
+    font-style: normal;
+}

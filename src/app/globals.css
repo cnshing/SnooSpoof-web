@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --blue: #0079D3;
+  --black: #121212;
+  --dark-grey: #4F4E4F;
+  --grey: #8D8D8D;
+  --silver: #D7D7D7;
+  --chain-grey: #787C7E;
+  --ghost-white: #F8F9FA;
+  --left-align-center: clamp(2.188rem, 13vw, max(13vw, 5rem));
+}
+
+body {
+  background: #DAE0E6
+}

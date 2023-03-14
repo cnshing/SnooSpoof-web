@@ -1,0 +1,66 @@
+/* Border thickness of generate bar. Units should only be in px. */
+$bar-border-width: 1px;
+
+/* The size of an element increases slightly whenever an border is applied to it.
+   Typically this  wouldn't occur if "box-sizing: border-box" is
+   set. Unfortunately, border-box will not be applied if widths are not explictly
+   defined. 
+
+   See https://stackoverflow.com/questions/3254587/when-1-px-border-is-added-to-div-div-size-increases-dont-want-to-do-that
+   for more details.
+
+   Every 1 px increase of $border-width offsets the width and height by 2 px. */
+$border-size-offset: 2 * $bar-border-width;
+
+/* How much spacing to "center" the /u/ prefix */
+$prefix-padding: 0.85rem;
+
+/* The total width of container "/u/" */
+$prefix-width: calc(36px + $prefix-padding + $border-size-offset);
+
+/* Width of our "Username" search bar */
+$username-width: min(calc(77vw - var(--button-width) - $prefix-width), 37.5rem);
+
+/* The minimium width required to display the full "Username" text with acceptable padding */
+$min-username-width: 6.5rem;
+
+$bar-height: 3.375rem;
+
+.container {
+    display: flex;
+    margin-top: max(4rem, 3.5vh);
+    margin-left: var(--left-align-center);
+    height: $bar-height;
+}
+
+.font {
+    color: var(--grey);
+    font-weight: 500;
+    font-size: 1.2rem;
+    line-height: 1.2rem;
+}
+
+%bar {
+    background-color: white;
+    box-sizing: border-box;
+    border: $bar-border-width solid var(--silver);
+    border-right: none;
+}
+
+/* The /u/ to the left of our typable bar */
+.prefix {
+    @extend %bar;
+    /* Creating a border shifts the text up by $border-size-offset amount */
+    line-height: calc($bar-height - $border-size-offset);
+    padding-left: $prefix-padding;
+    border-radius: 5px 0px 0px 5px;
+}
+
+/* The field to enter a username */
+.username {
+    @extend %bar;
+    width: $username-width;
+    min-width: $min-username-width;
+    padding-left: 0.425rem;
+    border-left: none;
+}
