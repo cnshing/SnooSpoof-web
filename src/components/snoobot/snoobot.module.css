@@ -1,39 +1,20 @@
+@keyframes glow-in-out {
 
-@keyframes glow-in {
-    from { 
+    0%,
+    16.67% {
         opacity: 0;
     }
-    to {
+
+    83.33%,
+    100% {
         opacity: 1;
     }
 }
-
-@keyframes glow-out {
-    from {
-        opacity: 1;
-    }
-    to {
-        opacity: 0;
-    }
-}
-
-
 
 .glow {
-    /* animation: initial-delay 700ms infinite, glow-in cubic-bezier(0,0.5,0.5,1) 2000ms infinite, pause-glow 250ms infinite, glow-out cubic-bezier(0.5, 0, 1, 0.5) 1000ms infinite;
-    */
-    /* There is no property that allows you to add a animation delay for each iteration of the animation.
-       There is no easy method that allows you to chain multiple different sequential animations infinitely
-       One method involves accounting for delays inside the keyframes, but this will affect the cubic-bezier function.
-       Another method involves combining the keyframes into one single animation, but that again will affect the cubic-bezier functions.*/
-    animation: glow-in cubic-bezier(0,0.5,0.5,1) 1000ms infinite
+    animation: glow-in-out cubic-bezier(0, 0.5, 0.5, 1) 1500ms infinite alternate;
 }
 
 .unglow {
-    opacity: 0
+    display: none
 }
-
-
-/* animation-timing-function: cubic-bezier(0, 0.5, 0.5, 1);
-animation-timing-function: cubic-bezier(0.5, 0, 1, 0.5);
-*/
