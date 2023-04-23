@@ -2,10 +2,9 @@ import Tab from "@/components/post/tab"
 import Box from "@/components/post/box"
 import styles from "@/components/post/post.module.css"
 import Image from 'next/image'
-
 import Article from "./article"
 import { CSSProperties } from "react"
-import { NonNullExpression } from "ts-morph"
+
 
 
 /* The page parameters for showing a post*/
@@ -15,6 +14,14 @@ export type PostParams = {
   subreddit: string,
   prompt: string,
   response: string
+}
+
+export const DefaultPost: PostParams = {
+  comments_only: false,
+  username: "SnooSpoof", 
+  subreddit: "SnooSpoof",
+  prompt: "Default Post",
+  response: "If you see this message, then a post has been made without any fetch calls."
 }
 
 /**
