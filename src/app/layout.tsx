@@ -6,6 +6,7 @@ import ShareSidebar from "@/components/sidebar/manageSidebar"
 import Icons from "@/app/tabs"
 import Github from "@/app/github"
 import Gear from "@/components/tabs/gear"
+import gear from "@/public/gear.svg"
 
 const noto_sans = Noto_Sans_Display({
   subsets: ['latin'],
@@ -37,7 +38,7 @@ export default function RootLayout({
           <Icons>
             <Github/>
             <Gear requires={['openSettings']}>
-              <Image src="/gear.svg" width="57" height="57" alt="Settings"></Image>
+              <Image src={gear} alt="Settings"></Image>
             </Gear>
           </Icons>
           <Sidebar requires={['isVisible', 'closeSettings']}/>
