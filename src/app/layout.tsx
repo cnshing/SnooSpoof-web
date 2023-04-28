@@ -45,7 +45,7 @@ export default function RootLayout({
           </Icons>
           <Sidebar requires={['isVisible', 'closeSettings']}/>
         </ShareSidebar>
-        <div className={`${styles.clearTabs} ${styles.snoobot}`}>{children}</div>
+        <div className={`${styles.clearTabs} ${styles.snoobotContainer}`}>{children}</div>
       </body>
     </html>
   )
