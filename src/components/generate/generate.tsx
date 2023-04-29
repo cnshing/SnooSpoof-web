@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/fields"
 import { updateSetting, generate, getGenerationConfig, getSetting, GenerationConfig, GeneratedText } from "@/components/generate/manageGenerate";
 import { iterateProgress, Progress, fakeProgress } from "@/components/generate/progress"
 import { DefaultPost, PostParams } from '../post/post';
+import Snoobot from '@/components/snoobot/snoobot';
 
 /**
  * Asks reddit if the username is valid.
@@ -85,6 +86,7 @@ export default function GenerateBar() {
 
     const progress = iterateProgress();
     const [status, setStatus] = useState<string>(" ")
+    const [glow, setGlow] = useState<boolean>(false);
     const router = useRouter()
 
     /**
@@ -93,6 +95,8 @@ export default function GenerateBar() {
     const animateProgress = () => {
         /* Start fake progress text */
         fakeProgress(undefined, () => { setStatus(progress.next().value) })
+        /* Start Snoobot Glow Animation */
+        setGlow(true)
     }
 
     /**
@@ -104,7 +108,8 @@ export default function GenerateBar() {
         setStatus("Done!")
         // TODO: Investigate TypeScript Error
         const results: PostParams = DefaultPost
-        for (var param in results) {
+        let param: keyof PostParams
+        for (param in results) {
             results[param] = {...initialRequest, ...fetched}[param]
         }
         const url: string = `/post` + Object.values(results).reduce(
@@ -151,6 +156,7 @@ export default function GenerateBar() {
                     onClick={onGenerate}>Generate</Button>
             </div>
             <Progress status={status} />
+            <Snoobot isGlowing={glow}></Snoobot>
         </>
     )
 }

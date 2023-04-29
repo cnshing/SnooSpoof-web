@@ -2,7 +2,7 @@
 .progress {
     margin-top: calc(max(4rem, 3.5vh)/2);
     margin-left: var(--left-align-center);
-    width: 75vw;
+    width: fit-content; 
     color: var(--black);
     white-space: pre-wrap;
 }

@@ -1,7 +1,6 @@
 'use client';
 import styles from "@/components/snoobot/snoobot.module.css"
 
-
 /**
  * 
  * @param isGlowing "Whether Snoobot's eye is glowing. Defaults to false"
@@ -9,17 +8,19 @@ import styles from "@/components/snoobot/snoobot.module.css"
  * @returns A white-text button that lights up when hovered.
  */
 export default function Snoobot(
-    { children, isGlowing = true }:
-        { children?: React.ReactNode, isGlowing?: boolean }
+    { isGlowing = false }:
+        { isGlowing?: boolean }
 ) {
     const animateGlow: string = isGlowing ? styles.glow : styles.unglow;
     return (
-        /** Optimized SVG via SVGR + SVGO **/
-        <svg
+      <div className={styles.container} style={{gridColumn: 2}}>
+        {/** Optimized SVG via SVGR + SVGO **/}
+        <svg 
+        className={styles.snoobot}
         xmlns="http://www.w3.org/2000/svg"
-        width={989}
-        height={978}
+        preserveAspectRatio="none"
         fill="none"
+        viewBox="0 0 989 978"
       >
         <defs>
           <radialGradient
@@ -197,5 +198,6 @@ export default function Snoobot(
           d="M837.411 417.471c0 .319.017.62.033.938.8 37.801 16.734 70.382 39.744 86.681.2.141.4.3.616.424.2.16.4.284.599.425m65.85-.92a71.538 71.538 0 0 0 1.815-1.345c21.962-16.724 37.013-48.525 37.812-85.265m4.12-.471h-41.969m-75.186-.679c.016.389.05.761.083 1.15 2.064 33.589 19.064 59.763 39.727 59.763 20.712 0 37.728-26.244 39.743-59.904.033-.336.05-.673.067-1.009"
         />
       </svg>
+      </div>
     )
 }

@@ -18,3 +18,17 @@
 .unglow {
     display: none
 }
+
+.container {
+    position: relative;
+    grid-column: 2;
+    min-height: calc(98.5vh - 3.375rem);
+    grid-row: 1 / span 99;
+}
+
+.snoobot {
+    /*TODO: Make Snoobot Responsive and fit the screen best */
+    overflow: visible;
+    position: absolute;
+    bottom: 0;
+}
