@@ -20,6 +20,9 @@
 }
 
 .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: relative;
     grid-column: 2;
     min-height: calc(98.5vh - 3.375rem);
@@ -27,8 +30,28 @@
 }
 
 .snoobot {
-    /*TODO: Make Snoobot Responsive and fit the screen best */
-    overflow: visible;
     position: absolute;
     bottom: 0;
+}
+
+/* TODO: Refactor Snoobot responsive layout to not use media queries and !important marker */
+@media (max-width: 1157px) {
+    .container {
+        grid-row: 1;
+        min-height: calc(100% + max(4rem, 3.5vh));
+        /* At 1157 px, translateX to -3 rem. Then linearly scale to -4rem at 850 px. */
+        transform: translateX(clamp( -3.90rem, -5.826547231270358rem + 3.908794788273615vw, -3rem ));
+        width: max(16rem, 165%) !important;
+    }
+}
+
+@media (max-width: 1488px) {
+    .container {
+        width: 200%;
+    }
+    .snoobot {
+        transform: rotate(-20deg);
+        bottom: unset;
+
+    }
 }
