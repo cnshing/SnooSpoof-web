@@ -64,3 +64,8 @@ $bar-height: 3.375rem;
     padding-left: 0.425rem;
     border-left: none;
 }
+
+.username:-webkit-autofill,
+.username:-webkit-autofill:focus {
+  transition: background-color 600000s 0s, color 600000s 0s;
+}
