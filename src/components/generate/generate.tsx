@@ -6,6 +6,8 @@ import Button from "@/components/ui/button"
 import { Input } from "@/components/ui/fields"
 import { updateSetting, generate, getGenerationConfig, getSetting, GenerationConfig, GeneratedText } from "@/components/generate/manageGenerate";
 import { iterateProgress, Progress, fakeProgress } from "@/components/generate/progress"
+import { DefaultPost, PostParams } from '../post/post';
+import Snoobot from '@/components/snoobot/snoobot';
 
 /**
  * Asks reddit if the username is valid.
@@ -29,7 +31,7 @@ export async function validUsername(username: string): Promise<boolean> {
 /**
  * Updates the username and return the value.
  */
-function updateUsername(user: string): string  {
+function updateUsername(user: string): string {
     updateSetting("username", user)
     return user;
 }
@@ -84,7 +86,59 @@ export default function GenerateBar() {
 
     const progress = iterateProgress();
     const [status, setStatus] = useState<string>(" ")
+    const [glow, setGlow] = useState<boolean>(false);
     const router = useRouter()
+
+    /**
+     * Start animating visual indictators to show that generation request is in progress
+     */
+    const animateProgress = () => {
+        /* Start fake progress text */
+        fakeProgress(undefined, () => { setStatus(progress.next().value) })
+        /* Start Snoobot Glow Animation */
+        setGlow(true)
+    }
+
+    /**
+    * Redirects the user to the freshly generated posts
+    * @param fetched The generated responses
+    * @param params The initial configuration to generate text
+    */
+    const showPost = (fetched: GeneratedText, initialRequest: GenerationConfig) => {
+        setStatus("Done!")
+        // TODO: Investigate TypeScript Error
+        const results: PostParams = DefaultPost
+        let param: keyof PostParams
+        for (param in results) {
+            results[param] = {...initialRequest, ...fetched}[param]
+        }
+        const url: string = `/post` + Object.values(results).reduce(
+            (query, setting) => query + "/" + encodeURIComponent(setting),
+            ""
+        )
+        router.push(url)
+    }
+
+    /**
+     * Main handler responsible for validating usernames, animating progress indicators and fetching/redirecting
+     * the generated post
+     */
+    const onGenerate = () => {
+        const username: string = getSetting("username")
+        validUsername(username)
+            /* Checks to see if the username is valid before fetching*/
+            .then(async (realUser) => {
+                if (!realUser) {
+                    promptInputError("Please enter a real username")
+                    return
+                }
+                animateProgress()
+                const genRequest: GenerationConfig = getGenerationConfig();
+                const genText = await generate(genRequest)
+                showPost(genText, genRequest)
+            })
+    }
+
     return (
         <>
             <div className={`${styles.container} ${styles.font}`} style={buttonWidth}>
@@ -99,41 +153,10 @@ export default function GenerateBar() {
                     } as CSSProperties
                 }
                     color="#0079D3"
-                    onClick={() => {
-                        const username: string = getSetting("username")
-                        const comments_only: boolean = getSetting("comments_only");
-                        validUsername(username)
-                            /* Checks to see if the username is valid before fetching*/
-                            .then(async (realUser) => {
-                                if (!realUser) {
-                                    promptInputError("Please enter a real username")
-                                    return
-                                }
-                            /* Start fake progress text */
-                                fakeProgress(undefined, () => { setStatus(progress.next().value) })
-                                const params: GenerationConfig = getGenerationConfig();
-                                /**
-                                 * Redirects the user to the freshly generated posts
-                                 * @param result The generated responses
-                                 */
-                                const showPost = (result: GeneratedText) => {
-                                    setStatus("Done!")
-                                    const loadResults = (setting: keyof GeneratedText) => {
-                                        return result.hasOwnProperty(setting) ? result[setting] : params[setting]
-                                    }
-                                    const url: string = `/post` + [comments_only, username, loadResults('subreddit'), loadResults('prompt'), loadResults('response')].reduce(
-                                        (query, setting) => query + "/" + encodeURIComponent(setting),
-                                        ""
-                                    )
-                                    router.push(url)
-                                }
-                                const genText = await generate(params)
-                                showPost(genText)
-
-                            })
-                    }}>Generate</Button>
+                    onClick={onGenerate}>Generate</Button>
             </div>
             <Progress status={status} />
+            <Snoobot isGlowing={glow}></Snoobot>
         </>
     )
 }

@@ -63,4 +63,6 @@ $bar-height: 3.375rem;
     min-width: $min-username-width;
     padding-left: 0.425rem;
     border-left: none;
+    /* Remove the default margin inherited from reusable input component*/
+    margin: unset;
 }

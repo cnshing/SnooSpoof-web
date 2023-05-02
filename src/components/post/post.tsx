@@ -2,10 +2,9 @@ import Tab from "@/components/post/tab"
 import Box from "@/components/post/box"
 import styles from "@/components/post/post.module.css"
 import Image from 'next/image'
-
 import Article from "./article"
 import { CSSProperties } from "react"
-import { NonNullExpression } from "ts-morph"
+
 
 
 /* The page parameters for showing a post*/
@@ -15,6 +14,14 @@ export type PostParams = {
   subreddit: string,
   prompt: string,
   response: string
+}
+
+export const DefaultPost: PostParams = {
+  comments_only: false,
+  username: "SnooSpoof",
+  subreddit: "SnooSpoof",
+  prompt: "Default Post",
+  response: "If you see this message, then a post has been made without any fetch calls."
 }
 
 /**
@@ -47,7 +54,7 @@ export function Headers(
 export function Response(
   { response }:
     Pick<PostParams, "response">) {
-  return<>
+  return <>
     {response.split("\n").map
       ((text, index) =>
         <p key={index} className={styles.response}>{text}</p>)}
@@ -60,8 +67,8 @@ export function Response(
  * @param length The length of our line
  * @returns 
  */
-export function Seperator({length="80%"}: {length?: string}) {
-  return <hr className={styles.seperator} style={{"--seperator-length": length} as CSSProperties}></hr>
+export function Seperator({ length = "80%" }: { length?: string }) {
+  return <hr className={styles.seperator} style={{ "--seperator-length": length } as CSSProperties}></hr>
 }
 
 /**
@@ -69,7 +76,7 @@ export function Seperator({length="80%"}: {length?: string}) {
  * @param username Any username
  * @returns A BOT variant of username
  */
-function BOT(username: string) : string  {
+function BOT(username: string): string {
   return `${username}_BOT`
 }
 
@@ -81,41 +88,41 @@ function BOT(username: string) : string  {
  * @response Main content of post
  * @returns
  */
-export function Submission({subreddit, username, prompt, response}: 
+export function Submission({ subreddit, username, prompt, response }:
   Pick<PostParams, "subreddit" | "username" | "prompt" | "response">) {
   return (
     <section>
-          <Headers subreddit={subreddit} username={BOT(username)} />
-          <Article headline={prompt}
-            size="1.5625rem" style={{ margin: "1% 2.5%", lineHeight: 1.15 } as CSSProperties}>
-            <Response response={response} />
-          </Article>
-          <br/>
-          <Seperator length="90%"/>
-          <br/>
-          <br/>
-          <br/>
+      <Headers subreddit={subreddit} username={BOT(username)} />
+      <Article headline={prompt}
+        size="1.5625rem" style={{ margin: "1% 2.5%", lineHeight: 1.15 } as CSSProperties}>
+        <Response response={response} />
+      </Article>
+      <br />
+      <Seperator length="90%" />
+      <br />
+      <br />
+      <br />
     </section>
   )
 }
 
-export function Vertical({length="80%"}: {length?: string}) {
-  return <div className={styles.vertical} style={{"--vertical-length": length} as CSSProperties}></div>
+export function Vertical({ length = "80%" }: { length?: string }) {
+  return <div className={styles.vertical} style={{ "--vertical-length": length } as CSSProperties}></div>
 }
 
-export function Comment({username, comment}: {username: string, comment: string}) {
+export function Comment({ username, comment }: { username: string, comment: string }) {
   return (
     <Article headline={username} size="15px"
-        style={{ margin: "15px 2.5%", lineHeight: 1.15 } as CSSProperties}>
-        <p style={{fontSize: "15px", marginTop: "20px"} as CSSProperties}>{comment}</p>
+      style={{ margin: "15px 2.5%", lineHeight: 1.15 } as CSSProperties}>
+      <p style={{ fontSize: "15px", marginTop: "20px" } as CSSProperties}>{comment}</p>
     </Article>
   )
 }
 
-export function SideProfile({color, ...passthrough}: {color: "blue" | "grey" | "orange" | "white",} & React.ImgHTMLAttributes<HTMLImageElement>) {
+export function SideProfile({ color, ...passthrough }: { color: "blue" | "grey" | "orange" | "white", } & React.ImgHTMLAttributes<HTMLImageElement>) {
   return (
     <>
-      <Image style={{margin: "7px auto"}}alt={`${color}Profile`} src={`/${color}Profile.svg`}  height={40} width={39} {...passthrough}></Image>
+      <Image style={{ margin: "7px auto" }} alt={`${color}Profile`} src={`/${color}Profile.svg`} height={40} width={39} {...passthrough}></Image>
       <Vertical></Vertical>
     </>
   )
@@ -123,7 +130,7 @@ export function SideProfile({color, ...passthrough}: {color: "blue" | "grey" | "
 
 export function Post(
   { comments_only, username, subreddit, prompt, response }:
-  PostParams
+    PostParams
 ) {
   return (
     <Box style={
@@ -136,16 +143,16 @@ export function Post(
       } as CSSProperties
     }>
       <Tab>
-        {comments_only && <SideProfile color="grey"/>}
+        {comments_only && <SideProfile color="grey" />}
       </Tab>
       {comments_only
         ? <section>
-          <Comment username="Autofill" comment={prompt}/>
-          <Box style={{marginLeft: 0, border: 0}}>
+          <Comment username="Autofill" comment={prompt} />
+          <Box style={{ marginLeft: 0, border: 0 }}>
             <Tab>
-              <SideProfile color="blue"/>
+              <SideProfile color="blue" />
             </Tab>
-            <Comment username={BOT(username)} comment={response}/>
+            <Comment username={BOT(username)} comment={response} />
           </Box>
         </section>
         : <Submission subreddit={subreddit} username={username} prompt={prompt} response={response} />

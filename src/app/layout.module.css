@@ -1,0 +1,16 @@
+/* Clear right to ensure floated elements stay at the correct position */
+.clearTabs {
+    clear: right
+}
+
+/* Container holds the Snoobot component and is designed to take the rightmost remaining space*/
+.snoobotParent {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-flow: row;
+}
+
+/* For single web page where every element is stacked vertically, this change will have no effect*/
+.snoobotParent > * {
+    grid-column: 1;
+}

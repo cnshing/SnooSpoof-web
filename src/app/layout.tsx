@@ -6,6 +6,9 @@ import ShareSidebar from "@/components/sidebar/manageSidebar"
 import Icons from "@/app/tabs"
 import Github from "@/app/github"
 import Gear from "@/components/tabs/gear"
+import gear from "@/public/gear.svg"
+import { CSSProperties } from 'react';
+import styles from "@/app/layout.module.css"
 
 const noto_sans = Noto_Sans_Display({
   subsets: ['latin'],
@@ -37,13 +40,12 @@ export default function RootLayout({
           <Icons>
             <Github/>
             <Gear requires={['openSettings']}>
-              <Image src="/gear.svg" width="57" height="57" alt="Settings"></Image>
+              <Image src={gear} alt="Settings"></Image>
             </Gear>
           </Icons>
           <Sidebar requires={['isVisible', 'closeSettings']}/>
         </ShareSidebar>
-        {/* Clear right to ensure floated elements stay at the correct position */}
-        <div style={{clear: "right"}}>{children}</div>
+        <div className={`${styles.clearTabs} ${styles.snoobotParent}`}>{children}</div>
       </body>
     </html>
   )
