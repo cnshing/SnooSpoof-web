@@ -113,7 +113,8 @@ export async function generate(config: GenerationConfig): Promise<GeneratedText>
     const queryItem: string = "/generate/?"
     const fetcher = (url: string) => fetch(url, {
         headers: {
-            'accept': 'application/json'
+            'accept': 'application/json',
+            "ngrok-skip-browser-warning": 'true'
         }
     })
         .then((response) => response.json())
