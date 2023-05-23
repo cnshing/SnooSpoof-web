@@ -20,8 +20,8 @@ export const DefaultPost: PostParams = {
   comments_only: false,
   username: "SnooSpoof",
   subreddit: "SnooSpoof",
-  prompt: "Default Post",
-  response: "If you see this message, then a post has been made without any fetch calls."
+  prompt: "Almost there...",
+  response: "Hang on tight! We are just about to show you your post"
 }
 
 /**
