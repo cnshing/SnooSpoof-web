@@ -112,10 +112,10 @@ export default function GenerateBar() {
         for (param in results) {
             results[param] = {...initialRequest, ...fetched}[param]
         }
-        const url: string = `/post` + Object.values(results).reduce(
-            (query, setting) => query + "/" + encodeURIComponent(setting),
-            ""
-        )
+        if (typeof window !== "undefined") {
+            window.localStorage.setItem('results', JSON.stringify(results))     
+        }
+        const url: string = `/post`
         router.push(url)
     }
 
