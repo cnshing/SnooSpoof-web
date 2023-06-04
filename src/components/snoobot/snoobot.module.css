@@ -42,6 +42,7 @@
         /* At 1157 px, translateX to -3 rem. Then linearly scale to -4rem at 850 px. */
         transform: translateX(clamp( -3.90rem, -5.826547231270358rem + 3.908794788273615vw, -3rem ));
         width: max(16rem, 165%) !important;
+        height: 0;
     }
 }
 

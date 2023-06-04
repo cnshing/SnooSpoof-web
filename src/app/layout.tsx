@@ -1,4 +1,5 @@
 import './globals.css'
+import { Metadata } from 'next';
 import { Noto_Sans_Display, IBM_Plex_Sans } from 'next/font/google';
 import Image from 'next/image'
 import Sidebar from "@/components/sidebar/sidebar"
@@ -7,8 +8,15 @@ import Icons from "@/app/tabs"
 import Github from "@/app/github"
 import Gear from "@/components/tabs/gear"
 import gear from "@/public/gear.svg"
-import { CSSProperties } from 'react';
 import styles from "@/app/layout.module.css"
+ 
+export const metadata: Metadata = {
+  viewport: {
+    width: 'device-width',
+    initialScale: 1,
+    minimumScale: 1
+  },
+};
 
 const noto_sans = Noto_Sans_Display({
   subsets: ['latin'],
@@ -36,6 +44,7 @@ export default function RootLayout({
       */}
       <head />
       <body>
+        <div style={{overflowX: 'hidden'}}>
         <ShareSidebar>
           <Icons>
             <Github/>
@@ -46,6 +55,7 @@ export default function RootLayout({
           <Sidebar requires={['isVisible', 'closeSettings']}/>
         </ShareSidebar>
         <div className={`${styles.clearTabs} ${styles.snoobotParent}`}>{children}</div>
+        </div>
       </body>
     </html>
   )
