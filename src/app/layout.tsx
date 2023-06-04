@@ -7,7 +7,6 @@ import Icons from "@/app/tabs"
 import Github from "@/app/github"
 import Gear from "@/components/tabs/gear"
 import gear from "@/public/gear.svg"
-import { CSSProperties } from 'react';
 import styles from "@/app/layout.module.css"
 
 const noto_sans = Noto_Sans_Display({
